@@ -5,7 +5,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE INTERNAL "")
 if(MSVC)
     add_compile_options(/std:c++latest)
 else()
-    add_compile_options(-Wall -O3 -std=c++17)
+    add_compile_options(-Wall -O3 -std=c++20)
     #add_compile_options(-Wall -Ofast -std=c++2a -DNDEBUG -march=skylake -flto -fno-exceptions -fno-rtti -fno-unwind-tables -fno-asynchronous-unwind-tables -DFMTLOG_NO_CHECK_LEVEL=1)
     #SET(CMAKE_AR  "gcc-ar")
     #SET(CMAKE_RANLIB  "gcc-ranlib")
@@ -26,6 +26,24 @@ if(MSVC)
   target_link_libraries(fmtlog-static fmt)
 endif()
 install(TARGETS fmtlog-static)
+
+
+include(FetchContent)
+
+FetchContent_Declare(
+  fast_io                         
+  GIT_REPOSITORY https://github.com/cppfastio/fast_io.git
+)
+
+# make available
+FetchContent_MakeAvailable(fast_io)
+
+get_cmake_property(_variableNames VARIABLES)
+list (SORT _variableNames)
+foreach (_variableName ${_variableNames})
+    message(STATUS "${_variableName}=${${_variableName}}")
+endforeach()
+
 
 add_subdirectory(fmt)
 add_subdirectory(test)

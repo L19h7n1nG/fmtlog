@@ -36,7 +36,7 @@ if(NOT MSVC)
   install(TARGETS link_header_shared)
 
 endif()
-
+include_directories(${fast_io_SOURCE_DIR}/include)
 add_executable(log_test log_test.cc)
 target_link_libraries(log_test fmtlog-static fmt)
 #target_compile_definitions(log_test PUBLIC FMTLOG_HEADER_ONLY)
@@ -47,8 +47,14 @@ target_link_libraries(enc_dec_test fmtlog-static fmt)
 install(TARGETS enc_dec_test)
 
 add_executable(multithread_test multithread_test.cc)
+
 target_compile_definitions(multithread_test PUBLIC FMTLOG_HEADER_ONLY)
 #target_link_libraries(multithread_test fmtlog-static fmt)
 target_link_libraries(multithread_test fmt)
 install(TARGETS multithread_test)
+
+
+
+add_executable(fast_io_vs_fmt fast_io_vs_fmt.cc)
+target_link_libraries(fast_io_vs_fmt fmt)
 
